@@ -3,61 +3,399 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noah DiDonna</title>
-<meta name="description" content="Personal website of Noah DiDonna.">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+<title>Noah James DiDonna</title>
+<meta name="description" content="Personal website and resume of Noah James DiDonna.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
-  body { max-width: 720px; }
-  header { text-align: center; padding: 3rem 0 1rem; }
-  header h1 { margin-bottom: 0.25rem; }
-  header p { color: var(--pico-muted-color); }
-  section { margin-bottom: 2.5rem; }
-  footer { text-align: center; color: var(--pico-muted-color); padding: 2rem 0; }
-  ul.links { list-style: none; padding: 0; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  :root {
+    --indigo: #4f46e5;
+    --indigo-dark: #3730a3;
+    --violet: #7c3aed;
+    --teal: #0d9488;
+    --amber: #f59e0b;
+    --rose: #e11d48;
+    --bg: #f6f7fb;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.65;
+  }
+  h1, h2, h3 { font-family: "Poppins", system-ui, sans-serif; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* ---------- Nav ---------- */
+  .navbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(246, 247, 251, 0.85);
+    border-bottom: 1px solid var(--border);
+  }
+  .navbar .wrap { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.25rem; max-width: 880px; }
+  .navbar .brand { font-weight: 800; color: var(--indigo-dark); font-size: 1.05rem; }
+  .navlinks { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+  .navlinks a {
+    text-decoration: none; color: var(--muted); font-weight: 600; font-size: 0.9rem;
+    padding: 0.35rem 0; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
+  }
+  .navlinks a:hover, .navlinks a.active { color: var(--indigo); border-color: var(--indigo); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: linear-gradient(135deg, var(--indigo) 0%, var(--violet) 55%, var(--teal) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 4rem 1.25rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar {
+    width: 108px; height: 108px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 3px solid rgba(255,255,255,0.6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem; font-weight: 800; margin: 0 auto 1.25rem;
+    backdrop-filter: blur(4px);
+  }
+  .hero h1 { margin: 0 0 0.4rem; font-size: 2.6rem; letter-spacing: 0.01em; }
+  .hero .tagline { font-size: 1.1rem; opacity: 0.95; margin-bottom: 1.5rem; font-weight: 500; }
+  .hero-contacts { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+  .hero-contacts a {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.15); color: #fff; text-decoration: none;
+    padding: 0.5rem 1.1rem; border-radius: 2rem; font-size: 0.88rem; font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  .hero-contacts a:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+  /* ---------- Sections ---------- */
+  main { padding: 3rem 0; }
+  section { margin-bottom: 3.5rem; scroll-margin-top: 4.5rem; }
+  .section-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.75rem; }
+  .section-head .icon {
+    width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .section-head h2 { margin: 0; font-size: 1.45rem; }
+  #education .icon { background: linear-gradient(135deg, var(--indigo), var(--violet)); }
+  #experience .icon { background: linear-gradient(135deg, var(--teal), #06b6d4); }
+  #projects .icon { background: linear-gradient(135deg, var(--amber), var(--rose)); }
+  #skills .icon { background: linear-gradient(135deg, var(--rose), var(--violet)); }
+  #contact .icon { background: linear-gradient(135deg, var(--indigo-dark), var(--indigo)); }
+
+  /* ---------- Timeline ---------- */
+  .timeline { position: relative; padding-left: 1.75rem; }
+  .timeline::before {
+    content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px;
+    background: linear-gradient(to bottom, var(--indigo), var(--teal));
+  }
+  .tl-item { position: relative; margin-bottom: 1.5rem; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -1.75rem; top: 0.3rem;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--card); border: 3px solid var(--indigo);
+  }
+  .tl-item.teal::before { border-color: var(--teal); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 1.25rem 1.5rem; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(79, 70, 229, 0.12); }
+
+  .entry-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+  .entry-header h3 { margin: 0 0 0.2rem; font-size: 1.1rem; color: var(--text); }
+  .entry-sub { margin: 0 0 0.75rem; color: var(--indigo); font-weight: 600; font-size: 0.92rem; }
+  .date {
+    white-space: nowrap; color: #fff; background: var(--indigo);
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+    padding: 0.2rem 0.65rem; border-radius: 1rem;
+  }
+  .tl-item.teal .date { background: var(--teal); }
+  ul.tight { margin: 0.25rem 0 0; padding-left: 1.2rem; }
+  ul.tight li { margin-bottom: 0.4rem; }
+
+  /* ---------- Project cards ---------- */
+  .project-grid { display: grid; gap: 1.25rem; }
+  .project-card { border-left: 4px solid var(--amber); }
+  .project-card:nth-child(2) { border-left-color: var(--rose); }
+  .project-card h3 { margin: 0 0 0.3rem; font-size: 1.1rem; }
+  .project-tag {
+    display: inline-block; background: #fef3c7; color: #92400e; font-size: 0.75rem; font-weight: 700;
+    padding: 0.15rem 0.6rem; border-radius: 1rem; margin-bottom: 0.6rem;
+  }
+
+  /* ---------- Skills ---------- */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .chip {
+    padding: 0.45rem 1rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 600;
+    color: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .chip:nth-child(6n+1) { background: var(--indigo); }
+  .chip:nth-child(6n+2) { background: var(--teal); }
+  .chip:nth-child(6n+3) { background: var(--violet); }
+  .chip:nth-child(6n+4) { background: var(--amber); color: #3f2d00; }
+  .chip:nth-child(6n+5) { background: var(--rose); }
+  .chip:nth-child(6n+6) { background: var(--indigo-dark); }
+
+  /* ---------- Contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .contact-card {
+    display: flex; align-items: center; gap: 0.85rem; text-decoration: none; color: var(--text);
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .contact-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1); border-color: var(--indigo); }
+  .contact-card .ci {
+    width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-card:nth-child(1) .ci { background: var(--indigo); }
+  .contact-card:nth-child(2) .ci { background: #0a66c2; }
+  .contact-card:nth-child(3) .ci { background: #24292e; }
+  .contact-card strong { display: block; font-size: 0.95rem; }
+  .contact-card span { color: var(--muted); font-size: 0.82rem; }
+
+  footer { text-align: center; color: var(--muted); padding: 2rem 0 3rem; font-size: 0.85rem; }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    .navlinks { gap: 0.9rem; font-size: 0.8rem; }
+    .hero h1 { font-size: 2rem; }
+  }
 </style>
 </head>
 <body>
-<main class="container">
 
-  <header>
-    <h1>Noah DiDonna</h1>
-    <p>Software Engineer</p>
+  <nav class="navbar">
+    <div class="wrap">
+      <span class="brand">Noah DiDonna</span>
+      <ul class="navlinks">
+        <li><a href="#education" data-nav="education">Education</a></li>
+        <li><a href="#experience" data-nav="experience">Experience</a></li>
+        <li><a href="#projects" data-nav="projects">Projects</a></li>
+        <li><a href="#skills" data-nav="skills">Skills</a></li>
+        <li><a href="#contact" data-nav="contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="avatar">ND</div>
+    <h1>Noah James DiDonna</h1>
+    <p class="tagline">Business Analytics Graduate Student &middot; Banking &amp; Financial Operations</p>
+    <div class="hero-contacts">
+      <a href="mailto:ndidonna1@babson.edu"><i class="fa-solid fa-envelope"></i> ndidonna1@babson.edu</a>
+      <a href="tel:5083447817"><i class="fa-solid fa-phone"></i> 508-344-7817</a>
+      <a href="https://linkedin.com/in/noah-didonna" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+      <a href="#"><i class="fa-solid fa-location-dot"></i> South Grafton, MA</a>
+    </div>
   </header>
 
-  <section id="about">
-    <h2>About</h2>
-    <p>
-      Hi, I'm Noah — a software engineer who enjoys building things and
-      figuring out how they work under the hood. This page is a small
-      corner of the internet where I share what I'm working on.
-    </p>
-  </section>
+  <main class="wrap">
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <article>
-      <h3><a href="#">Project One</a></h3>
-      <p>A short description of what this project does and why it's interesting.</p>
-    </article>
-    <article>
-      <h3><a href="#">Project Two</a></h3>
-      <p>A short description of what this project does and why it's interesting.</p>
-    </article>
-  </section>
+    <section id="education">
+      <div class="section-head">
+        <span class="icon"><i class="fa-solid fa-graduation-cap"></i></span>
+        <h2>Education</h2>
+      </div>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <ul class="links">
-      <li><a href="mailto:you@example.com">Email</a></li>
-      <li><a href="https://github.com/NoahDiDonna" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a></li>
-    </ul>
-  </section>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="card">
+            <div class="entry-header">
+              <h3>Babson College, F.W. Olin Graduate School of Business</h3>
+              <span class="date">May 2027</span>
+            </div>
+            <p class="entry-sub">MS in Business Analytics &middot; Wellesley, MA</p>
+            <ul class="tight">
+              <li>Relevant Coursework: Programming for Business Analytics, Economic Analysis for Business Decisions</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item teal reveal">
+          <div class="card">
+            <div class="entry-header">
+              <h3>University of Connecticut</h3>
+              <span class="date">May 2026</span>
+            </div>
+            <p class="entry-sub">BS, Economics &middot; 3.54 Cumulative GPA, 3.81 Economics GPA &middot; Storrs, CT</p>
+            <ul class="tight">
+              <li>Relevant Coursework: Money and Banking, Econometrics I &amp; II, Programming Computation with R</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-head">
+        <span class="icon"><i class="fa-solid fa-briefcase"></i></span>
+        <h2>Experience</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="card">
+            <div class="entry-header">
+              <h3>Bay State Bank</h3>
+              <span class="date">June 2026 &ndash; Present</span>
+            </div>
+            <p class="entry-sub">Intern &middot; Worcester, MA</p>
+            <ul class="tight">
+              <li>Assisted Operations Department with records digitization project</li>
+              <li>Digitized and indexed physical customer and account records, ensuring accurate categorization</li>
+              <li>Shadowed members of the Deposit Operations and Commercial Lending teams</li>
+              <li>Gained exposure to core banking functions and cross-departmental workflows</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item teal reveal">
+          <div class="card">
+            <div class="entry-header">
+              <h3>Dime Bank</h3>
+              <span class="date">2025 &ndash; March 2026</span>
+            </div>
+            <p class="entry-sub">Universal Banker &middot; Vernon, CT</p>
+            <ul class="tight">
+              <li>Managed accounts, transactions, and banking operations with accuracy and compliance</li>
+              <li>Operated within regulatory frameworks while supporting risk mitigation and data integrity</li>
+              <li>Built strong client relationships in a fast-paced financial services environment</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="card">
+            <div class="entry-header">
+              <h3>University of Connecticut &mdash; WOW Leader</h3>
+              <span class="date">August 2025</span>
+            </div>
+            <p class="entry-sub">Orientation Leadership &middot; Storrs, CT</p>
+            <ul class="tight">
+              <li>Guided incoming students through orientation programming and campus transition activities</li>
+              <li>Collaborated with university staff and student leaders to execute large-scale events</li>
+              <li>Facilitated group engagement sessions and campus tours for first-year students</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
+        <h2>Relevant Projects</h2>
+      </div>
+
+      <div class="project-grid">
+        <div class="card project-card reveal">
+          <span class="project-tag">Python</span>
+          <h3>Inflation and S&amp;P 500 Predictive Analysis</h3>
+          <ul class="tight">
+            <li>Conducted an analysis examining the relationship between inflation rates and S&amp;P 500 returns</li>
+            <li>Utilized libraries to clean and analyze datasets from Yahoo Finance and FRED</li>
+            <li>Performed regression analysis and visualized trends and correlations</li>
+          </ul>
+        </div>
+
+        <div class="card project-card reveal">
+          <span class="project-tag">Research</span>
+          <h3>Relationship Between ESG Risk, Volatility, and Earnings in S&amp;P 500 Firms</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <span class="icon"><i class="fa-solid fa-star"></i></span>
+        <h2>Core Skills</h2>
+      </div>
+      <div class="chip-row reveal">
+        <span class="chip">Python</span>
+        <span class="chip">R</span>
+        <span class="chip">Econometrics</span>
+        <span class="chip">Regression Analysis</span>
+        <span class="chip">Banking Operations</span>
+        <span class="chip">Data Integrity &amp; Compliance</span>
+        <span class="chip">Client Relations</span>
+        <span class="chip">Excel</span>
+        <span class="chip">Financial Analysis</span>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head">
+        <span class="icon"><i class="fa-solid fa-address-card"></i></span>
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-grid reveal">
+        <a class="contact-card" href="mailto:ndidonna1@babson.edu">
+          <span class="ci"><i class="fa-solid fa-envelope"></i></span>
+          <span><strong>Email</strong><span>ndidonna1@babson.edu</span></span>
+        </a>
+        <a class="contact-card" href="https://linkedin.com/in/noah-didonna" target="_blank" rel="noopener">
+          <span class="ci"><i class="fa-brands fa-linkedin"></i></span>
+          <span><strong>LinkedIn</strong><span>noah-didonna</span></span>
+        </a>
+        <a class="contact-card" href="https://github.com/NoahDiDonna" target="_blank" rel="noopener">
+          <span class="ci"><i class="fa-brands fa-github"></i></span>
+          <span><strong>GitHub</strong><span>NoahDiDonna</span></span>
+        </a>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    <small>&copy; 2026 Noah DiDonna</small>
+    <small>&copy; 2026 Noah James DiDonna</small>
   </footer>
 
-</main>
+<script>
+  // Reveal sections on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Scrollspy: highlight active nav link
+  const navLinks = document.querySelectorAll('.navlinks a');
+  const sections = document.querySelectorAll('main section[id]');
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = document.querySelector('.navlinks a[data-nav="' + entry.target.id + '"]');
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  sections.forEach(s => spyObserver.observe(s));
+</script>
 </body>
 </html>
